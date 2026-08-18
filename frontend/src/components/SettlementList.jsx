@@ -19,7 +19,7 @@ export default function SettlementList({ settlements }) {
           <span>
             {item.from.name} pays {item.to.name}
           </span>
-          <strong>{formatMoney(item.amount)}</strong>
+          <strong className="money">{formatMoney(item.amount)}</strong>
         </div>
       ))}
     </div>

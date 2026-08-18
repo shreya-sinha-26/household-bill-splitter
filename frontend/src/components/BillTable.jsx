@@ -22,15 +22,16 @@ export default function BillTable({ bills, onEdit, onDelete }) {
       <tbody>
         {bills.map((bill) => (
           <tr key={bill.id}>
-            <td>{bill.date}</td>
-            <td>{bill.description}</td>
-            <td>{bill.paidBy ? bill.paidBy.name : ''}</td>
-            <td>{formatMoney(bill.amount)}</td>
-            <td>
+            <td data-label="Date">{bill.date}</td>
+            <td data-label="Description">{bill.description}</td>
+            <td data-label="Paid by">{bill.paidBy ? bill.paidBy.name : ''}</td>
+            <td data-label="Amount">
+              <span className="money">{formatMoney(bill.amount)}</span>
+            </td>
+            <td className="bill-actions">
               <button className="btn" type="button" onClick={() => onEdit(bill)}>
                 Edit
               </button>
-              {' '}
               <button className="btn btn-danger" type="button" onClick={() => onDelete(bill)}>
                 Delete
               </button>

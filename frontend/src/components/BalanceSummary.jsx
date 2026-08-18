@@ -14,7 +14,7 @@ export default function BalanceSummary({ balances }) {
   })
 
   return (
-    <div>
+    <div className="balance-list">
       {balances.map((row) => {
         const net = Number(row.netBalance)
         let className = 'balance-zero'
@@ -27,15 +27,17 @@ export default function BalanceSummary({ balances }) {
           label = 'owes'
         }
         return (
-          <div className="balance-row" key={row.memberId}>
+          <div className="balance-card" key={row.memberId}>
             <span>{row.memberName}</span>
             <span className={className}>
-              {label} {formatMoney(Math.abs(net))}
+              {label} <span className="money">{formatMoney(Math.abs(net))}</span>
             </span>
           </div>
         )
       })}
-      <p className="net-proof">Net total = {formatMoney(netTotal)}</p>
+      <p className="net-proof">
+        Net total = <span className="money">{formatMoney(netTotal)}</span>
+      </p>
     </div>
   )
 }

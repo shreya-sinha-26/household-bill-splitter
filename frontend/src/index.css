@@ -9,8 +9,19 @@
   --danger: #b42318;
   --owed: #157a3a;
   --owes: #b42318;
-  --shadow: 0 8px 24px rgba(31, 42, 36, 0.08);
+  --shadow:
+    0 1px 2px rgba(31, 42, 36, 0.05),
+    0 10px 28px rgba(31, 42, 36, 0.06);
   --radius: 12px;
+  --header-height: 56px;
+  --space: 24px;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --leading: 1.6;
+  --tap: 44px;
 }
 
 * {
@@ -20,8 +31,28 @@
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: var(--text-md);
+  line-height: var(--leading);
   color: var(--ink);
   background: var(--bg);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: var(--text-xl);
+}
+
+h2 {
+  font-size: var(--text-lg);
+}
+
+h3 {
+  font-size: var(--text-md);
 }
 
 a {
@@ -33,16 +64,32 @@ a:hover {
   text-decoration: underline;
 }
 
+a:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
 .app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
   background: var(--brand);
   color: #fff;
-  padding: 16px 24px;
 }
 
 .app-brand {
   color: #fff;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: var(--text-lg);
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
 }
 
 .app-brand:hover {
@@ -50,62 +97,130 @@ a:hover {
   text-decoration: none;
 }
 
+.app-brand:focus-visible {
+  outline-color: #fff;
+}
+
 .app-main {
   max-width: 960px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: calc(var(--header-height) + var(--space)) 16px 48px;
 }
 
 .page-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: var(--space);
+}
+
+.page-header h1 {
+  margin: 0;
 }
 
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: var(--space);
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 12px;
-}
-
-.field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.field input,
-.field select,
-.field textarea {
-  padding: 8px 10px;
+.toolbar input,
+.toolbar select {
+  min-height: var(--tap);
+  flex: 1 1 180px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
   font: inherit;
   background: #fff;
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.field label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  min-height: var(--tap);
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  line-height: var(--leading);
+  background: #fff;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible,
+.toolbar input:focus-visible,
+.toolbar select:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
 .field-error {
   color: var(--danger);
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
+  line-height: var(--leading);
 }
 
 .btn {
   border: 0;
   border-radius: 8px;
-  padding: 8px 14px;
+  min-height: var(--tap);
+  min-width: var(--tap);
+  padding: 10px 16px;
   font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   background: #e8efe9;
   color: var(--ink);
+  transition:
+    background-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+a.btn {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.btn:hover {
+  text-decoration: none;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
 }
 
 .btn:disabled {
@@ -122,6 +237,11 @@ a:hover {
   background: var(--brand-dark);
 }
 
+a.btn-primary,
+a.btn-primary:hover {
+  color: #fff;
+}
+
 .btn-danger {
   background: #f8e4e2;
   color: var(--danger);
@@ -133,16 +253,25 @@ a:hover {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space);
 }
 
-.group-card {
+.group-card,
+.section,
+.balance-card,
+.settlement-row {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 16px;
   box-shadow: var(--shadow);
+}
+
+.group-card {
+  padding: var(--space);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .group-card h3 {
@@ -150,51 +279,61 @@ a:hover {
 }
 
 .group-card p {
-  margin: 0 0 12px;
+  margin: 0 0 20px;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
+  line-height: var(--leading);
+  flex: 1;
 }
 
 .group-card-actions {
   display: flex;
-  gap: 8px;
+  gap: 12px;
+}
+
+.group-card-actions .btn {
+  flex: 1;
 }
 
 .chips {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 0 0 20px;
+  margin: 0 0 var(--space);
 }
 
 .chip {
   background: #e8efe9;
   border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 0.85rem;
+  padding: 8px 12px;
+  font-size: var(--text-sm);
+  line-height: 1.3;
 }
 
 .section {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow);
+  padding: var(--space);
+  margin-bottom: var(--space);
 }
 
 .section h2 {
-  margin: 0 0 12px;
-  font-size: 1.05rem;
+  margin: 0 0 16px;
 }
 
-.balance-row,
-.settlement-row {
+.balance-list {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 12px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line);
+}
+
+.balance-card {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding: var(--space);
+  margin: 0;
 }
 
 .balance-owed {
@@ -212,14 +351,36 @@ a:hover {
 }
 
 .net-proof {
-  margin-top: 12px;
+  margin: 16px 0 0;
   font-weight: 700;
+  line-height: var(--leading);
+}
+
+.money {
+  font-variant-numeric: tabular-nums;
+}
+
+.settlement-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding: var(--space);
+  margin-bottom: 12px;
+}
+
+.settlement-row:last-child {
+  margin-bottom: 0;
 }
 
 .empty,
 .loading {
   color: var(--muted);
-  padding: 16px 0;
+  text-align: center;
+  margin: 0;
+  padding: 48px 16px;
+  line-height: var(--leading);
 }
 
 .error-banner {
@@ -227,8 +388,9 @@ a:hover {
   color: var(--danger);
   border: 1px solid #f3c4c0;
   border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 16px;
+  padding: 16px;
+  margin-bottom: var(--space);
+  line-height: var(--leading);
 }
 
 .error-banner ul {
@@ -241,44 +403,96 @@ a:hover {
   border-collapse: collapse;
 }
 
-.bill-table th,
+.bill-table thead {
+  display: none;
+}
+
+.bill-table,
+.bill-table tbody,
+.bill-table tr,
 .bill-table td {
-  text-align: left;
-  padding: 8px 6px;
+  display: block;
+}
+
+.bill-table tr {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space);
+  margin-bottom: 16px;
+}
+
+.bill-table tr:last-child {
+  margin-bottom: 0;
+}
+
+.bill-table td {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
+  line-height: var(--leading);
+}
+
+.bill-table td::before {
+  content: attr(data-label);
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.bill-table td.bill-actions {
+  border-bottom: 0;
+  justify-content: stretch;
+  padding-top: 16px;
+  gap: 12px;
+}
+
+.bill-table td.bill-actions::before {
+  display: none;
+}
+
+.bill-table td.bill-actions .btn {
+  flex: 1;
 }
 
 .pagination {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  margin-top: 12px;
+  justify-content: center;
+  gap: 12px;
+  margin-top: var(--space);
 }
 
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(20, 28, 24, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
   z-index: 20;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+  background: rgba(20, 28, 24, 0.45);
 }
 
 .modal {
   background: var(--surface);
-  border-radius: var(--radius);
-  padding: 20px;
-  width: min(480px, 100%);
-  max-height: 90vh;
+  width: 100%;
+  min-height: 100%;
+  max-height: 100%;
   overflow: auto;
-  box-shadow: var(--shadow);
+  padding: var(--space);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .modal h2 {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
 }
 
 .member-row {
@@ -289,9 +503,86 @@ a:hover {
 
 .member-row input {
   flex: 1;
+  min-height: var(--tap);
 }
 
 .back-link {
-  display: inline-block;
-  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  .app-main {
+    padding-left: var(--space);
+    padding-right: var(--space);
+  }
+
+  .modal-backdrop {
+    align-items: center;
+    justify-content: center;
+    padding: var(--space);
+  }
+
+  .modal {
+    width: min(480px, 100%);
+    min-height: 0;
+    max-height: 90vh;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+}
+
+@media (min-width: 768px) {
+  .bill-table {
+    display: table;
+  }
+
+  .bill-table thead {
+    display: table-header-group;
+  }
+
+  .bill-table tbody {
+    display: table-row-group;
+  }
+
+  .bill-table tr {
+    display: table-row;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .bill-table th,
+  .bill-table td {
+    display: table-cell;
+    text-align: left;
+    padding: 14px 10px;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--text-sm);
+    vertical-align: middle;
+  }
+
+  .bill-table th {
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .bill-table td::before {
+    display: none;
+  }
+
+  .bill-table td.bill-actions {
+    padding-top: 14px;
+    white-space: nowrap;
+  }
+
+  .bill-table td.bill-actions .btn {
+    flex: 0 0 auto;
+  }
 }
